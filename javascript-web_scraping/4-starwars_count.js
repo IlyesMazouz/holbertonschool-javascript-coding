@@ -9,5 +9,7 @@ request(apiUrl, (error, response, body) => {
     const filmsData = JSON.parse(body).results;
     const count = filmsData.filter(film => film.characters.includes('https://swapi-api.hbtn.io/api/people/18/')).length;
     console.log(count);
+  } else {
+    console.error('Error: Unable to fetch data from the API');
   }
 });
