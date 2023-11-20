@@ -7,10 +7,8 @@ const app = http.createServer((req, res) => {
 
 const PORT = 1245;
 
-if (require.main === module) {
-  app.listen(PORT, () => {
-    console.log(`Server is running and listening on port ${PORT}`);
-  });
-}
+app.listen(PORT, () => {
+  console.log(`Server is running and listening on port ${PORT}`);
+});
 
 module.exports = app;
