@@ -4,30 +4,20 @@ const countStudents = require('./3-read_file_async');
 const PORT = 1245;
 
 const app = http.createServer(async (req, res) => {
-  if (req.url === '/') {
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('Hello Holberton School!\n');
-  } else if (req.url === '/students') {
-    const databaseFile = process.argv[2];
-    if (!databaseFile) {
-      res.statusCode = 500;
-      res.setHeader('Content-Type', 'text/plain');
-      res.end('Internal Server Error: Database file not provided\n');
-      return;
-    }
+  res.setHeader('Content-Type', 'text/plain');
 
+  if (req.url === '/') {
+    res.end('Hello Holberton School!');
+  } else if (req.url === '/students') {
     try {
-      const data = await countStudents(databaseFile);
-      res.setHeader('Content-Type', 'text/plain');
-      res.end(`This is the list of our students\n${data}`);
+      const result = await countStudents(process.argv[2]);
+      res.end(`This is the list of our students\n${result}`);
     } catch (error) {
       res.statusCode = 500;
-      res.setHeader('Content-Type', 'text/plain');
-      res.end(`Internal Server Error: ${error.message}\n`);
+      res.end(`Internal Server Error: ${error.message}`);
     }
   } else {
     res.statusCode = 404;
-    res.setHeader('Content-Type', 'text/plain');
     res.end('Not Found\n');
   }
 });
